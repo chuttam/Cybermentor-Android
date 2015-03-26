@@ -7,6 +7,36 @@
     tools:context=".ChatActivity$PlaceholderFragment">
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/textView" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView"
+        android:background="@drawable/frame_border"
+        android:id="@+id/framelayout" >
+
+        <ImageView
+            android:id="@+id/frameImage"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/frameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Text Label"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            android:layout_gravity="bottom" />
+
+    </FrameLayout>
 
 </RelativeLayout>
