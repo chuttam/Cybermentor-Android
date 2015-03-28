@@ -35,9 +35,9 @@ public class ChatActivity extends ActionBarActivity {
             }
 
             public void onFinish() {
-                FrameLayout frame = (FrameLayout) findViewById(R.id.conversation_frame);
-                frame.removeAllViews();
-                frame.addView(messageView);
+//                FrameLayout frame = (FrameLayout) findViewById(R.id.conversation_frame);
+//                frame.removeAllViews();
+//                frame.addView(messageView);
             }
         }.start();
 
