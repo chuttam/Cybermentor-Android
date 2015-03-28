@@ -5,15 +5,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class ChatActivity extends ActionBarActivity {
 
     // Layout views
-    private ListView conversationView;
+    private ArrayList<String> conversationArrayList;
+    private ListView chat;
     private TextView messageBox;
     private String message;
     private Button sendButton;
@@ -28,20 +31,23 @@ public class ChatActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
+        conversationArrayList = new ArrayList<String>();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.message, conversationArrayList);
+
         messageBox = (TextView) findViewById(R.id.message_entry);
         sendButton = (Button) findViewById(R.id.send_button);
-
-        final TextView chatView = (TextView) findViewById(R.id.scroll_chat);
+        chat = (ListView) findViewById(R.id.scroll_chat);
+        chat.setAdapter(adapter);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                message = messageBox.getText().toString();
-                chatView.setText(message);
-            }
-        }
+                                          public void onClick(View v) {
+                                              message = messageBox.getText().toString();
+                                              conversationArrayList.add("New: " + message);
+                                              adapter.notifyDataSetChanged();
+                                          }
+                                      }
         );
 
-        //ArrayAdapter conversationArrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_chat);
     }
 
     @Override
