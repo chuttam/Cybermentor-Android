@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,13 +24,17 @@ public class ChatActivity extends ActionBarActivity {
     private TextView messageBox;
     private String message;
     private Button sendButton;
-    private ActionBarDrawerToggle drawerToggle;
+//    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        setupDrawer();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+//        setupDrawer();
     }
 
     @Override
@@ -56,51 +61,46 @@ public class ChatActivity extends ActionBarActivity {
     }
 
     private void setupDrawer() {
-        String[] drawerItems = { "Item 1", "Item 2" };
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ListView drawerList = (ListView) findViewById(R.id.drawer_list);
-
-        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer, drawerItems));
-//        drawerList.setOnClickListener(new DrawerItemClickListener());
-
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                drawerLayout,          /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer icon to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description */
-                R.string.drawer_close  /* "close drawer" description */
-        ) {
+//        String[] drawerItems = { "Item 1", "Item 2" };
+//        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        ListView drawerList = (ListView) findViewById(R.id.drawer_list);
+//
+//        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer, drawerItems));
+//
+//        drawerToggle = new ActionBarDrawerToggle(
+//                this,                  /* host Activity */
+//                drawerLayout,          /* DrawerLayout object */
+//                R.drawable.ic_drawer,  /* nav drawer icon to replace 'Up' caret */
+//                R.string.drawer_open,  /* "open drawer" description */
+//                R.string.drawer_close  /* "close drawer" description */
+//        ) {
 
             /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-//                getActionBar().setTitle("Closed");
-            }
+//            public void onDrawerClosed(View view) {
+//                invalidateOptionsMenu();
+//            }
 
             /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-//                getActionBar().setTitle("Open");
-            }
-        };
+//            public void onDrawerOpened(View drawerView) {
+//                invalidateOptionsMenu();
+//            }
+//        };
 
         // Set the drawer toggle as the DrawerListener
-        drawerLayout.setDrawerListener(drawerToggle);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+//        drawerLayout.setDrawerListener(drawerToggle);
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        drawerToggle.syncState();
-    }
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        drawerToggle.syncState();
+//    }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        drawerToggle.onConfigurationChanged(newConfig);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -114,9 +114,12 @@ public class ChatActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+//        if (drawerToggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
+
+        int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
