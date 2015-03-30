@@ -1,4 +1,4 @@
-package ca.cybermentor.android.app;
+package ca.cybermentor.android.app.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import ca.cybermentor.android.app.R;
 
 public class ChatActivity extends ActionBarActivity {
 
