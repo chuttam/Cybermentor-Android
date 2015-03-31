@@ -1,10 +1,12 @@
 package ca.cybermentor.android.app.activity;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.cybermentor.android.app.R;
+import ca.cybermentor.android.app.api.CybermentorApi;
 
 public class ChatActivity extends ActionBarActivity {
 
@@ -27,6 +30,7 @@ public class ChatActivity extends ActionBarActivity {
     private Button sendButton;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
+    private String conversationHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,17 @@ public class ChatActivity extends ActionBarActivity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.message, conversationArrayList);
 
         messageBox = (TextView) findViewById(R.id.message_entry);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+            conversationHistory = convertStreamToString(new CybermentorApi().cybermentor.messageHistory("*** Redacted with BFG ***", "1").getBody().in());
+        } catch (Exception error) {
+            Log.e("ZOSO", error.toString());
+        }
+        conversationArrayList.add("Original: " + conversationHistory);
+
         sendButton = (Button) findViewById(R.id.send_button);
         chat = (ListView) findViewById(R.id.scroll_chat);
         chat.setAdapter(adapter);
@@ -61,6 +76,11 @@ public class ChatActivity extends ActionBarActivity {
                                           }
                                       }
         );
+    }
+
+    public static String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
     }
 
     private void setupDrawer() {
