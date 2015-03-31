@@ -58,7 +58,7 @@ public class ChatActivity extends ActionBarActivity {
         StrictMode.setThreadPolicy(policy);
 
         try {
-            conversationHistory = convertStreamToString(new CybermentorApi().cybermentor.messageHistory("*** Redacted with BFG ***", "1").getBody().in());
+            conversationHistory = CybermentorApi.convertStreamToString(new CybermentorApi().cybermentor.messageHistory("*** Redacted with BFG ***", "1").getBody().in());
         } catch (Exception error) {
             Log.e("ZOSO", error.toString());
         }
@@ -76,11 +76,6 @@ public class ChatActivity extends ActionBarActivity {
                                           }
                                       }
         );
-    }
-
-    public static String convertStreamToString(java.io.InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
     }
 
     private void setupDrawer() {
