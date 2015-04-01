@@ -1,12 +1,10 @@
 package ca.cybermentor.android.app.activity;
 
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,14 +52,10 @@ public class ChatActivity extends ActionBarActivity {
 
         messageBox = (TextView) findViewById(R.id.message_entry);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
 
-        try {
-            conversationHistory = CybermentorApi.convertStreamToString(new CybermentorApi().cybermentor.messageHistory("*** Redacted with BFG ***", "1").getBody().in());
-        } catch (Exception error) {
-            Log.e("ZOSO", error.toString());
-        }
+        conversationHistory = new CybermentorApi().getMessageHistory("*** Redacted with BFG ***", "1");
         conversationArrayList.add("Original: " + conversationHistory);
 
         sendButton = (Button) findViewById(R.id.send_button);
