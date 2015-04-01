@@ -36,6 +36,7 @@ public class ChatActivity extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
 
+    Bus eventBus = BusProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
