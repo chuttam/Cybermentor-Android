@@ -36,7 +36,6 @@ public class ChatActivity extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
 
-    Bus eventBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class ChatActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         setupDrawer();
-        getBus().register(this);
+        eventBus.register(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -104,9 +103,6 @@ public class ChatActivity extends ActionBarActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-//        conversationArrayList.add("FINAL!!!: ");
-//        adapter.notifyDataSetChanged();
-
         drawerToggle.syncState();
     }
 
@@ -135,31 +131,19 @@ public class ChatActivity extends ActionBarActivity {
     public void onResume() {
         super.onResume();
 //        TODO: Test device rotation failure.
-        getBus().register(this);
-//        getBus().post(new LoadConversationEvent());
+//        eventBus.register(this);
+//        eventBus.post(new LoadConversationEvent());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getBus().unregister(this);
+        eventBus.unregister(this);
     }
 
     @Subscribe
     public void onConversationLoaded(LoadConversationEvent event){
         conversationArrayList.add(event.body);
         adapter.notifyDataSetChanged();
-    }
-
-    // TODO: Inject this
-    private Bus getBus() {
-        if (eventBus == null) {
-            eventBus = BusProvider.getInstance();
-        }
-        return eventBus;
-    }
-
-    public void setBus(Bus bus) {
-        eventBus = bus;
     }
 }
