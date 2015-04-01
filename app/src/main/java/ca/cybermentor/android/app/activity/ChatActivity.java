@@ -13,22 +13,30 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
 import java.util.ArrayList;
 
 import ca.cybermentor.android.app.R;
 import ca.cybermentor.android.app.api.CybermentorApi;
+import ca.cybermentor.android.app.api.service.ConversationService;
+import ca.cybermentor.android.app.event.BusProvider;
+import ca.cybermentor.android.app.event.LoadConversationEvent;
 
 public class ChatActivity extends ActionBarActivity {
 
     // Layout views
     private ArrayList<String> conversationArrayList;
+    private ArrayAdapter adapter;
     private ListView chat;
     private TextView messageBox;
     private String message;
     private Button sendButton;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
-    private String conversationHistory;
+
+    Bus eventBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,7 @@ public class ChatActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         setupDrawer();
+        getBus().register(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -48,15 +57,12 @@ public class ChatActivity extends ActionBarActivity {
         super.onStart();
 
         conversationArrayList = new ArrayList<String>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.message, conversationArrayList);
+        adapter = new ArrayAdapter<String>(this, R.layout.message, conversationArrayList);
 
         messageBox = (TextView) findViewById(R.id.message_entry);
 
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
-
-        conversationHistory = new CybermentorApi().getMessageHistory("*** Redacted with BFG ***", "1");
-        conversationArrayList.add("Original: " + conversationHistory);
+        ConversationService service = new ConversationService(new CybermentorApi(), eventBus);
+        service.getMessageHistory("*** Redacted with BFG ***", "1");
 
         sendButton = (Button) findViewById(R.id.send_button);
         chat = (ListView) findViewById(R.id.scroll_chat);
@@ -98,6 +104,9 @@ public class ChatActivity extends ActionBarActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+//        conversationArrayList.add("FINAL!!!: ");
+//        adapter.notifyDataSetChanged();
+
         drawerToggle.syncState();
     }
 
@@ -120,5 +129,37 @@ public class ChatActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        TODO: Test device rotation failure.
+        getBus().register(this);
+//        getBus().post(new LoadConversationEvent());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getBus().unregister(this);
+    }
+
+    @Subscribe
+    public void onConversationLoaded(LoadConversationEvent event){
+        conversationArrayList.add(event.body);
+        adapter.notifyDataSetChanged();
+    }
+
+    // TODO: Inject this
+    private Bus getBus() {
+        if (eventBus == null) {
+            eventBus = BusProvider.getInstance();
+        }
+        return eventBus;
+    }
+
+    public void setBus(Bus bus) {
+        eventBus = bus;
     }
 }
