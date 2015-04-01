@@ -16,10 +16,16 @@ import android.widget.TextView;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.jsoup.nodes.Element;
+
 import java.util.ArrayList;
 
 import ca.cybermentor.android.app.R;
 import ca.cybermentor.android.app.api.CybermentorApi;
+import ca.cybermentor.android.app.api.model.Conversation;
 import ca.cybermentor.android.app.api.service.ConversationService;
 import ca.cybermentor.android.app.event.BusProvider;
 import ca.cybermentor.android.app.event.LoadConversationEvent;
@@ -144,7 +150,7 @@ public class ChatActivity extends ActionBarActivity {
 
     @Subscribe
     public void onConversationLoaded(LoadConversationEvent event){
-        conversationArrayList.add(event.body);
+        conversationArrayList.addAll(new Conversation().setupInitialConversation(event.body));
         adapter.notifyDataSetChanged();
     }
 }
