@@ -77,7 +77,7 @@ public class ChatActivity extends ActionBarActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
                                           public void onClick(View v) {
                                               message = messageBox.getText().toString();
-                                              conversationArrayList.add("New: " + message);
+                                              conversationArrayList.add("SENT: " + message);
                                               adapter.notifyDataSetChanged();
                                           }
                                       }

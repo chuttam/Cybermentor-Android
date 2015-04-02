@@ -12,9 +12,14 @@ public class Conversation {
         ArrayList<String> out = new ArrayList<String>();
         Document doc = Jsoup.parse(in);
         Elements allMessages = doc.select(".bubble");
+        String body;
 
         for (Element message : allMessages) {
-            out.add(message.select(".message-content").first().text());
+            body = message.select(".message-content").first().text();
+            if (message.hasClass("sent-message"))
+                out.add("SENT: " +  body);
+            else
+                out.add("RCVD: " +  body);
         }
         return out;
     }
