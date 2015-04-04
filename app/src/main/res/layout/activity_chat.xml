@@ -48,7 +48,8 @@
                     android:layout_height="fill_parent"
                     android:layout_gravity="center"
                     android:stackFromBottom="true"
-                    android:transcriptMode="alwaysScroll" />
+                    android:transcriptMode="alwaysScroll"
+                    android:divider="@null" />
 
             </FrameLayout>
 
