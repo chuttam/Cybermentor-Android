@@ -138,9 +138,7 @@ public class ChatActivity extends ActionBarActivity {
     @Override
     public void onResume() {
         super.onResume();
-//        TODO: Test device rotation failure.
-//        eventBus.register(this);
-//        eventBus.post(new LoadConversationEvent());
+        eventBus.register(this);
     }
 
     @Override
