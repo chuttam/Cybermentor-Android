@@ -41,10 +41,12 @@ public class ConversationAdapter extends ArrayAdapter<String> {
         if (messageBody.contains("SENT")) {
             messageBox.setBackgroundResource(R.drawable.selector_sent);
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            params.setMargins(5, 5, 150, 5);
             messageBox.setGravity(Gravity.LEFT);
         } else {
             messageBox.setBackgroundResource(R.drawable.selector_rcvd);
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            params.setMargins(150, 5, 5, 5);
             messageBox.setGravity(Gravity.RIGHT);
         }
         return conversationArea;
