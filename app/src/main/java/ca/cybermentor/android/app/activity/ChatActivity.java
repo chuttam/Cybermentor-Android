@@ -24,6 +24,7 @@ import org.jsoup.nodes.Element;
 import java.util.ArrayList;
 
 import ca.cybermentor.android.app.R;
+import ca.cybermentor.android.app.adapter.ConversationAdapter;
 import ca.cybermentor.android.app.api.CybermentorApi;
 import ca.cybermentor.android.app.api.model.Conversation;
 import ca.cybermentor.android.app.api.service.ConversationService;
@@ -34,7 +35,7 @@ public class ChatActivity extends ActionBarActivity {
 
     // Layout views
     private ArrayList<String> conversationArrayList;
-    private ArrayAdapter adapter;
+    private ConversationAdapter adapter;
     private ListView chat;
     private TextView messageBox;
     private String message;
@@ -63,7 +64,7 @@ public class ChatActivity extends ActionBarActivity {
         super.onStart();
 
         conversationArrayList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this, R.layout.message, conversationArrayList);
+        adapter = new ConversationAdapter(this, conversationArrayList);
 
         messageBox = (TextView) findViewById(R.id.message_entry);
 
