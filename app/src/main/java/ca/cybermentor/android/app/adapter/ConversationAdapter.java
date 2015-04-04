@@ -12,33 +12,27 @@ import android.widget.TextView;
 import java.util.List;
 
 import ca.cybermentor.android.app.R;
+import ca.cybermentor.android.app.model.Message;
 
-public class ConversationAdapter extends ArrayAdapter<String> {
+public class ConversationAdapter extends ArrayAdapter<Message> {
 
-    private List<String> messagesList;
-    private Context context;
-
-    public ConversationAdapter(Context ctx, List<String> messagesList) {
+    public ConversationAdapter(Context ctx, List<Message> messagesList) {
         super(ctx, R.layout.conversation_area, messagesList);
-        this.messagesList = messagesList;
-        this.context = ctx;
     }
 
     public View getView(int position, View currentView, ViewGroup parent) {
         View conversationArea = currentView;
-        String messageBody = "";
 
         // New view. Inflate layout & fill it.
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        conversationArea = inflater.inflate(R.layout.conversation_area, null);
+        conversationArea = LayoutInflater.from(this.getContext()).inflate(R.layout.conversation_area, parent, false);
 
         TextView messageBox = (TextView) conversationArea.findViewById(R.id.message);
 
-        messageBody = messagesList.get(position);
-        messageBox.setText(messageBody);
+        Message message = getItem(position);
+        messageBox.setText(message.body);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) messageBox.getLayoutParams();
 
-        if (messageBody.contains("SENT")) {
+        if (message.isSent()) {
             messageBox.setBackgroundResource(R.drawable.selector_sent);
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             params.setMargins(5, 5, 150, 5);

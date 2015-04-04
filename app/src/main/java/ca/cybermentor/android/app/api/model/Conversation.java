@@ -7,19 +7,23 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 
+import ca.cybermentor.android.app.model.Message;
+import ca.cybermentor.android.app.model.Message.Type;
+
 public class Conversation {
-    public ArrayList<String> setupInitialConversation(String in){
-        ArrayList<String> out = new ArrayList<String>();
+    public ArrayList<Message> setupInitialConversation(String in) {
+        ArrayList<Message> out = new ArrayList<Message>();
         Document doc = Jsoup.parse(in);
         Elements allMessages = doc.select(".bubble");
+        Message message;
         String body;
 
-        for (Element message : allMessages) {
-            body = message.select(".message-content").first().text();
-            if (message.hasClass("sent-message"))
-                out.add("SENT: " +  body);
+        for (Element rawMessage : allMessages) {
+            body = rawMessage.select(".message-content").first().text();
+            if (rawMessage.hasClass("sent-message"))
+                out.add(new Message(Type.SENT, body));
             else
-                out.add("RCVD: " +  body);
+                out.add(new Message(Type.RCVD, body));
         }
         return out;
     }

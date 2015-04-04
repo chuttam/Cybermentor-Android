@@ -16,11 +16,6 @@ import android.widget.TextView;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.jsoup.nodes.Element;
-
 import java.util.ArrayList;
 
 import ca.cybermentor.android.app.R;
@@ -30,11 +25,13 @@ import ca.cybermentor.android.app.api.model.Conversation;
 import ca.cybermentor.android.app.api.service.ConversationService;
 import ca.cybermentor.android.app.event.BusProvider;
 import ca.cybermentor.android.app.event.LoadConversationEvent;
+import ca.cybermentor.android.app.model.Message;
 
 public class ChatActivity extends ActionBarActivity {
 
+    Bus eventBus = BusProvider.getInstance();
     // Layout views
-    private ArrayList<String> conversationArrayList;
+    private ArrayList<Message> conversationArrayList;
     private ConversationAdapter adapter;
     private ListView chat;
     private TextView messageBox;
@@ -42,8 +39,6 @@ public class ChatActivity extends ActionBarActivity {
     private Button sendButton;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
-
-    Bus eventBus = BusProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +58,7 @@ public class ChatActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        conversationArrayList = new ArrayList<String>();
+        conversationArrayList = new ArrayList<Message>();
         adapter = new ConversationAdapter(this, conversationArrayList);
 
         messageBox = (TextView) findViewById(R.id.message_entry);
@@ -77,8 +72,8 @@ public class ChatActivity extends ActionBarActivity {
 
         sendButton.setOnClickListener(new View.OnClickListener() {
                                           public void onClick(View v) {
-                                              message = messageBox.getText().toString();
-                                              conversationArrayList.add("SENT: " + message);
+                                              Message message = new Message(Message.Type.SENT, messageBox.getText().toString());
+                                              conversationArrayList.add(message);
                                               adapter.notifyDataSetChanged();
                                           }
                                       }
@@ -86,7 +81,7 @@ public class ChatActivity extends ActionBarActivity {
     }
 
     private void setupDrawer() {
-        String[] drawerItems = { "Item 1", "Item 2" };
+        String[] drawerItems = {"Item 1", "Item 2"};
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ListView drawerList = (ListView) findViewById(R.id.drawer_items);
@@ -148,7 +143,7 @@ public class ChatActivity extends ActionBarActivity {
     }
 
     @Subscribe
-    public void onConversationLoaded(LoadConversationEvent event){
+    public void onConversationLoaded(LoadConversationEvent event) {
         conversationArrayList.addAll(new Conversation().setupInitialConversation(event.body));
         adapter.notifyDataSetChanged();
     }
