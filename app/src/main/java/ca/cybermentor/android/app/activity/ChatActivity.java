@@ -147,6 +147,8 @@ public class ChatActivity extends ActionBarActivity {
     @Override
     public void onResume() {
         super.onResume();
+        // TODO: Works, but shouldn't have to reload conversation just for orientation change.
+        // Make current state known.
         eventBus.register(this);
     }
 
