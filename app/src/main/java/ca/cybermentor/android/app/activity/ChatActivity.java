@@ -1,5 +1,6 @@
 package ca.cybermentor.android.app.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -40,6 +41,7 @@ public class ChatActivity extends ActionBarActivity {
     private Button sendButton;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
+    private ProgressDialog spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class ChatActivity extends ActionBarActivity {
         Participant sender = new Participant("*** Redacted with BFG ***");
         Participant receiver = new Participant("1");
         service.getMessageHistory(sender.id, receiver.id);
+        spinner = ProgressDialog.show(this, "Retrieving ...", "Please wait.", true, false);
 
         TextView topLine = (TextView) findViewById(R.id.top_line);
         topLine.setText(topLine.getText() + " " + receiver.name);
@@ -156,6 +159,9 @@ public class ChatActivity extends ActionBarActivity {
     @Subscribe
     public void onConversationLoaded(LoadConversationEvent event) {
         conversationArrayList.addAll(new Conversation().setupInitialConversation(event.body));
+        if (spinner != null) {
+            spinner.dismiss();
+        }
         adapter.notifyDataSetChanged();
     }
 }
