@@ -16,7 +16,7 @@ public class CybermentorApi {
     public CybermentorApi() {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint("http://cybermentor.ca")
-                .setLogLevel(RestAdapter.LogLevel.FULL)
+//                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
         service = restAdapter.create(Cybermentor.class);
