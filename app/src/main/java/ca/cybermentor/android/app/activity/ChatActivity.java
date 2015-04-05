@@ -26,6 +26,7 @@ import ca.cybermentor.android.app.api.service.ConversationService;
 import ca.cybermentor.android.app.event.BusProvider;
 import ca.cybermentor.android.app.event.LoadConversationEvent;
 import ca.cybermentor.android.app.model.Message;
+import ca.cybermentor.android.app.model.Participant;
 
 public class ChatActivity extends ActionBarActivity {
 
@@ -64,7 +65,13 @@ public class ChatActivity extends ActionBarActivity {
         messageBox = (TextView) findViewById(R.id.message_entry);
 
         ConversationService service = new ConversationService(new CybermentorApi(), eventBus);
-        service.getMessageHistory("*** Redacted with BFG ***", "1");
+
+        Participant sender = new Participant("*** Redacted with BFG ***");
+        Participant receiver = new Participant("1");
+        service.getMessageHistory(sender.id, receiver.id);
+
+        TextView topLine = (TextView) findViewById(R.id.top_line);
+        topLine.setText(topLine.getText() + " " + receiver.name);
 
         chat = (ListView) findViewById(R.id.scroll_chat);
         chat.setAdapter(adapter);
