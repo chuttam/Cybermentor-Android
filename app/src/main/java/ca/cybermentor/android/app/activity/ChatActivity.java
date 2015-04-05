@@ -66,17 +66,21 @@ public class ChatActivity extends ActionBarActivity {
         ConversationService service = new ConversationService(new CybermentorApi(), eventBus);
         service.getMessageHistory("*** Redacted with BFG ***", "1");
 
-        sendButton = (Button) findViewById(R.id.send_button);
         chat = (ListView) findViewById(R.id.scroll_chat);
         chat.setAdapter(adapter);
 
+        sendButton = (Button) findViewById(R.id.send_button);
         sendButton.setOnClickListener(new View.OnClickListener() {
-                                          public void onClick(View v) {
-                                              Message message = new Message(Message.Type.SENT, messageBox.getText().toString());
-                                              conversationArrayList.add(message);
-                                              adapter.notifyDataSetChanged();
-                                          }
-                                      }
+              public void onClick(View v) {
+                  String body = messageBox.getText().toString();
+                  if ((body != null) && (!body.isEmpty())) {
+                      Message message = new Message(Message.Type.SENT, body);
+                      conversationArrayList.add(message);
+                      adapter.notifyDataSetChanged();
+                      messageBox.setText(null);
+                  }
+              }
+          }
         );
     }
 
