@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
     android:minHeight="?attr/actionBarSize"
-    android:title="Cybermentor"
+    android:title="@string/app_name"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 

@@ -36,12 +36,12 @@ public class ConversationAdapter extends ArrayAdapter<Message> {
             messageBox.setBackgroundResource(R.drawable.selector_sent);
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             params.setMargins(5, 5, 150, 5);
-            messageBox.setGravity(Gravity.LEFT);
+            messageBox.setGravity(Gravity.START);
         } else {
             messageBox.setBackgroundResource(R.drawable.selector_rcvd);
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             params.setMargins(150, 5, 5, 5);
-            messageBox.setGravity(Gravity.RIGHT);
+            messageBox.setGravity(Gravity.END);
         }
         return conversationArea;
     }
