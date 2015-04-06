@@ -61,7 +61,7 @@ public class ChatActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        conversationArrayList = new ArrayList<Message>();
+        conversationArrayList = new ArrayList<>();
         adapter = new ConversationAdapter(this, conversationArrayList);
 
         messageBox = (TextView) findViewById(R.id.message_entry);

@@ -1,7 +1,5 @@
 package ca.cybermentor.android.app.api.service;
 
-import android.util.Log;
-
 import com.squareup.otto.Bus;
 
 import java.io.IOException;

@@ -12,10 +12,9 @@ import ca.cybermentor.android.app.model.Message.Type;
 
 public class Conversation {
     public ArrayList<Message> setupInitialConversation(String in) {
-        ArrayList<Message> out = new ArrayList<Message>();
+        ArrayList<Message> out = new ArrayList<>();
         Document doc = Jsoup.parse(in);
         Elements allMessages = doc.select(".bubble");
-        Message message;
         String body;
 
         for (Element rawMessage : allMessages) {
