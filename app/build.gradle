@@ -12,6 +12,12 @@ android {
         versionName "1.0"
     }
 
+    def proguardExceptions = [
+            'proguard/exceptions-otto.pro',
+            'proguard/exceptions-retrofit.pro',
+            'proguard/exceptions-cybermentor.pro'
+    ]
+
     lintOptions {
         warning 'InvalidPackage'
     }
@@ -22,9 +28,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false     // Proguard just won't work with Retrofit. Known issues.
+            minifyEnabled false     // Retrofit just doesn't play nice with Proguard. Known issues.
             signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), proguardExceptions, 'proguard/proguard-rules.pro'
             zipAlignEnabled true
         }
         debug {
