@@ -16,7 +16,7 @@ public class Participant {
 
     public String getName(String id) {
         Object lookup = userList.get(id);
-        return (name == null) ? "" : lookup.toString();
+        return (lookup == null) ? "" : lookup.toString();
     }
 
     private Hashtable initializeList() {
