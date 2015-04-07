@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.otto.Bus;
@@ -102,10 +101,11 @@ public class ChatActivity extends ActionBarActivity {
         String[] drawerItems = {"Item 1", "Item 2"};
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        ListView drawerList = (ListView) findViewById(R.id.drawer_items);
-        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, drawerItems));
         TextView whoami = (TextView) findViewById(R.id.whoami);
         whoami.setText(me.name);
+
+//        ListView drawerList = (ListView) findViewById(R.id.drawer_items);
+//        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_area, drawerItems));
 
         drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close

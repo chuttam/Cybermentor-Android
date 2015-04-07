@@ -79,52 +79,6 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/drawer_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/material_blue_grey_800">
+    <include layout="@layout/drawer_area" />
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/profile_box"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:background="@drawable/drawer_background"
-            android:padding="8dp">
-
-            <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="4dp"
-                android:gravity="center_vertical"
-                android:background="@drawable/mystery_icon"/>
-
-            <TextView
-                android:id="@+id/whoami"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_margin="15dp"
-                android:layout_toEndOf="@+id/profile_image"
-                android:layout_toRightOf="@+id/profile_image"
-                android:gravity="end"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-        <ListView
-            android:id="@+id/drawer_items"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/black"
-            android:dividerHeight="2dp"
-            android:layout_below="@id/profile_box"/>
-
-    </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>
