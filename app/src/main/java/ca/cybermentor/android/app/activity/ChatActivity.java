@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.otto.Bus;
@@ -42,6 +43,8 @@ public class ChatActivity extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
     private ProgressDialog spinner;
+    private Participant me;
+    private Participant receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class ChatActivity extends ActionBarActivity {
         setContentView(R.layout.activity_chat);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        me = new Participant("*** Redacted with BFG ***");
+        receiver = new Participant("1");    // TODO: Select in drawer. Default = "1"?
 
         setupDrawer();
         eventBus.register(this);
@@ -68,9 +74,7 @@ public class ChatActivity extends ActionBarActivity {
 
         ConversationService service = new ConversationService(new CybermentorApi(), eventBus);
 
-        Participant sender = new Participant("*** Redacted with BFG ***");
-        Participant receiver = new Participant("1");
-        service.getMessageHistory(sender.id, receiver.id);
+        service.getMessageHistory(me.id, receiver.id);
         spinner = ProgressDialog.show(this, "Retrieving ...", "Please wait.", true, false);
 
         TextView topLine = (TextView) findViewById(R.id.top_line);
@@ -100,6 +104,8 @@ public class ChatActivity extends ActionBarActivity {
 
         ListView drawerList = (ListView) findViewById(R.id.drawer_items);
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, drawerItems));
+        TextView whoami = (TextView) findViewById(R.id.whoami);
+        whoami.setText(me.name);
 
         drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close
