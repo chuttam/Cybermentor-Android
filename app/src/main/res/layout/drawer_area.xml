@@ -50,11 +50,43 @@
     <ListView
         android:id="@+id/drawer_items"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/connections_separator"
         android:choiceMode="singleChoice"
         android:divider="@android:color/black"
-        android:dividerHeight="2dp" />
+        android:dividerHeight="2dp"
+        android:paddingBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/your_account"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Your account"
+        android:gravity="center|bottom"
+        android:textColor="#ffadadad"
+        android:layout_below="@id/drawer_items"
+        android:padding="12dp"/>
+    <TextView
+        android:id="@+id/settings"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Settings"
+        android:gravity="center_vertical"
+        android:textColor="#fff"
+        android:layout_below="@id/your_account"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:padding="12dp"/>
+    <TextView
+        android:id="@+id/about_cybermentor"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="About Cybermentor"
+        android:gravity="center_vertical"
+        android:textColor="#fff"
+        android:layout_below="@id/settings"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:padding="12dp"/>
+
 
 </RelativeLayout>
 
