@@ -80,7 +80,7 @@ public class ChatActivity extends ActionBarActivity {
         spinner = ProgressDialog.show(this, "Retrieving ...", "Please wait.", true, false);
 
         TextView topLine = (TextView) findViewById(R.id.top_line);
-        topLine.setText(topLine.getText() + " " + receiver.name);
+        topLine.setText(getString(R.string.top_line)  + " " + receiver.name);
 
         chat = (ListView) findViewById(R.id.scroll_chat);
         chat.setAdapter(conversationAdapter);
