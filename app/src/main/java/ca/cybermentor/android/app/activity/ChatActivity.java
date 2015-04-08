@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import ca.cybermentor.android.app.R;
 import ca.cybermentor.android.app.adapter.ConversationAdapter;
+import ca.cybermentor.android.app.adapter.DrawerListAdapter;
 import ca.cybermentor.android.app.api.CybermentorApi;
 import ca.cybermentor.android.app.api.model.Conversation;
 import ca.cybermentor.android.app.api.service.ConversationService;
@@ -28,6 +29,7 @@ import ca.cybermentor.android.app.event.BusProvider;
 import ca.cybermentor.android.app.event.LoadConversationEvent;
 import ca.cybermentor.android.app.model.Message;
 import ca.cybermentor.android.app.model.Participant;
+import ca.cybermentor.android.app.model.view.DrawerItem;
 
 public class ChatActivity extends ActionBarActivity {
 
@@ -35,6 +37,7 @@ public class ChatActivity extends ActionBarActivity {
     // Layout views
     private ArrayList<Message> conversationArrayList;
     private ConversationAdapter conversationAdapter;
+    private DrawerListAdapter drawerListAdapter;
     private ListView chat;
     private TextView messageBox;
     private String message;
@@ -53,7 +56,7 @@ public class ChatActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         me = new Participant("*** Redacted with BFG ***");
-        receiver = new Participant("1");    // TODO: Select in drawer. Default = "1"?
+        receiver = new Participant("1");    // default to *** Redacted with BFG *** first
 
         setupDrawer();
         eventBus.register(this);
@@ -98,14 +101,19 @@ public class ChatActivity extends ActionBarActivity {
     }
 
     private void setupDrawer() {
-        String[] drawerItems = {"Item 1", "Item 2"};
+        ArrayList<DrawerItem> drawerItems = new ArrayList<>();
+        drawerItems.add(new DrawerItem(new Participant("1")));
+        drawerItems.add(new DrawerItem(new Participant("*** Redacted with BFG ***")));
+
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         TextView whoami = (TextView) findViewById(R.id.whoami);
         whoami.setText(me.name);
 
-//        ListView drawerList = (ListView) findViewById(R.id.drawer_items);
-//        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_area, drawerItems));
+        drawerListAdapter = new DrawerListAdapter(this, drawerItems);
+        ListView drawerList = (ListView) findViewById(R.id.drawer_items);
+        drawerListAdapter = new DrawerListAdapter(this, drawerItems);
+        drawerList.setAdapter(drawerListAdapter);
 
         drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close

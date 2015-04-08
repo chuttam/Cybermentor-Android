@@ -37,70 +37,24 @@
             android:textColor="#FFFFFF" />
     </RelativeLayout>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
+        android:id="@+id/connections_separator"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/profile_box">
-        <!--android:background="@drawable/list_selector"-->
+        android:layout_height="wrap_content"
+        android:text="Your connections"
+        android:gravity="center|bottom"
+        android:textColor="#ffadadad"
+        android:layout_below="@id/profile_box"
+        android:padding="12dp"/>
 
-        <!--<ListView-->
-            <!--android:id="@+id/drawer_items"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="#fff"-->
-            <!--android:choiceMode="singleChoice"-->
-            <!--android:divider="@android:color/black"-->
-            <!--android:dividerHeight="2dp">-->
-            <!--android:layout_below="@id/profile_box"-->
+    <ListView
+        android:id="@+id/drawer_items"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/connections_separator"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/black"
+        android:dividerHeight="2dp" />
 
-            <ImageView
-                android:id="@+id/row_icon"
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:src="@drawable/mystery_icon" />
-            <!--android:contentDescription="@string/desc_list_item_icon"-->
-
-            <TextView
-                android:id="@+id/drawer_item"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toEndOf="@id/row_icon"
-                android:layout_toRightOf="@id/row_icon"
-                android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:paddingEnd="40dp"
-                android:paddingRight="40dp"
-                android:text="Merp Ferp"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-            <!--android:textColor="@color/list_item_title"-->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:minHeight="35sp"
-                android:textColor="#000"
-                android:textSize="14sp" />
-            <!--android:layout_height="match_parent"-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/counter"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--/>-->
-            <!--android:background="@drawable/counter_bg"-->
-            <!--android:textColor="@color/counter_text_color"-->
-        <!--</ListView>-->
-
-    </RelativeLayout>
 </RelativeLayout>
+
