@@ -34,7 +34,7 @@ public class ChatActivity extends ActionBarActivity {
     Bus eventBus = BusProvider.getInstance();
     // Layout views
     private ArrayList<Message> conversationArrayList;
-    private ConversationAdapter adapter;
+    private ConversationAdapter conversationAdapter;
     private ListView chat;
     private TextView messageBox;
     private String message;
@@ -67,7 +67,7 @@ public class ChatActivity extends ActionBarActivity {
         super.onStart();
 
         conversationArrayList = new ArrayList<>();
-        adapter = new ConversationAdapter(this, conversationArrayList);
+        conversationAdapter = new ConversationAdapter(this, conversationArrayList);
 
         messageBox = (TextView) findViewById(R.id.message_entry);
 
@@ -80,7 +80,7 @@ public class ChatActivity extends ActionBarActivity {
         topLine.setText(topLine.getText() + " " + receiver.name);
 
         chat = (ListView) findViewById(R.id.scroll_chat);
-        chat.setAdapter(adapter);
+        chat.setAdapter(conversationAdapter);
 
         sendButton = (Button) findViewById(R.id.send_button);
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +89,7 @@ public class ChatActivity extends ActionBarActivity {
                   if ((body != null) && (!body.isEmpty())) {
                       Message message = new Message(Message.Type.SENT, body);
                       conversationArrayList.add(message);
-                      adapter.notifyDataSetChanged();
+                      conversationAdapter.notifyDataSetChanged();
                       messageBox.setText(null);
                   }
               }
@@ -170,6 +170,6 @@ public class ChatActivity extends ActionBarActivity {
         if (spinner != null) {
             spinner.dismiss();
         }
-        adapter.notifyDataSetChanged();
+        conversationAdapter.notifyDataSetChanged();
     }
 }
