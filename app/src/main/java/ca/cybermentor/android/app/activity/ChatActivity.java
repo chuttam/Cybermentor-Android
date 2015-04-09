@@ -55,7 +55,7 @@ public class ChatActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        me = new Participant("*** Redacted with BFG ***");        // Should come from authentication
+        setUpParticipants();
         setupDrawer();
         eventBus.register(this);
 
@@ -73,10 +73,6 @@ public class ChatActivity extends ActionBarActivity {
         messageBox = (TextView) findViewById(R.id.message_entry);
 
         ConversationService service = new ConversationService(new CybermentorApi(), eventBus);
-
-        String receiver_id = getIntent().getStringExtra("receiver");
-        if (receiver_id == null) receiver_id = "1"; // default to *** Redacted with BFG *** first
-        receiver = new Participant(receiver_id);
         service.getMessageHistory(me.id, receiver.id);
 
         spinner = ProgressDialog.show(this, "Retrieving ...", "Please wait.", true, false);
@@ -102,6 +98,13 @@ public class ChatActivity extends ActionBarActivity {
         );
     }
 
+    private void setUpParticipants() {
+        me = new Participant("*** Redacted with BFG ***");                        // Should come from authentication
+        String receiver_id = getIntent().getStringExtra("receiver");
+        if (receiver_id == null) receiver_id = "1";         // default to *** Redacted with BFG *** first
+        receiver = new Participant(receiver_id);
+    }
+
     private void setupDrawer() {
         ArrayList<DrawerItem> drawerItems = new ArrayList<>();
         drawerItems.add(new DrawerItem(new Participant("1")));
@@ -117,7 +120,7 @@ public class ChatActivity extends ActionBarActivity {
         drawerListAdapter = new DrawerListAdapter(this, drawerItems);
         drawerList.setAdapter(drawerListAdapter);
 
-        drawerList.setOnItemClickListener(new RecipientChangeListener());
+        drawerList.setOnItemClickListener(new RecipientChangeListener(receiver.id));
 
         drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close

@@ -1,5 +1,6 @@
 package ca.cybermentor.android.app.activity.listener;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,16 +10,23 @@ import ca.cybermentor.android.app.R;
 import ca.cybermentor.android.app.activity.ChatActivity;
 
 public class RecipientChangeListener implements ListView.OnItemClickListener {
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //TODO: Bypass if existing position is the same as currently open recipient.
-        switchRecipientTo(view, position);
+
+    private String currentRecipientId;
+
+    public RecipientChangeListener(String currentRecipientId) {
+        this.currentRecipientId = currentRecipientId;
     }
 
-    private void switchRecipientTo(View view, int position) {
-        String recipientId = (String) view.findViewById(R.id.recipient_name).getTag();
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String newRecipientId = (String) view.findViewById(R.id.recipient_name).getTag();
+        if (!currentRecipientId.equals(newRecipientId))
+            switchRecipientTo(view, position, newRecipientId);
+    }
+
+    private void switchRecipientTo(View view, int position, String newRecipientId) {
         Intent intent = new Intent(view.getContext(), ChatActivity.class);
-        intent.putExtra("receiver", recipientId);
+        intent.putExtra("receiver", newRecipientId);
         view.getContext().startActivity(intent);
     }
 }
