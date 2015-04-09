@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,9 +55,7 @@ public class ChatActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        me = new Participant("*** Redacted with BFG ***");
-        receiver = new Participant("1");    // default to *** Redacted with BFG *** first
-
+        me = new Participant("*** Redacted with BFG ***");        // Should come from authentication
         setupDrawer();
         eventBus.register(this);
 
@@ -77,7 +74,11 @@ public class ChatActivity extends ActionBarActivity {
 
         ConversationService service = new ConversationService(new CybermentorApi(), eventBus);
 
+        String receiver_id = getIntent().getStringExtra("receiver");
+        if (receiver_id == null) receiver_id = "1"; // default to *** Redacted with BFG *** first
+        receiver = new Participant(receiver_id);
         service.getMessageHistory(me.id, receiver.id);
+
         spinner = ProgressDialog.show(this, "Retrieving ...", "Please wait.", true, false);
 
         TextView topLine = (TextView) findViewById(R.id.top_line);
