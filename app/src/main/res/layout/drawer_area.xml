@@ -41,11 +41,11 @@
         android:id="@+id/connections_separator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your connections"
-        android:gravity="center|bottom"
-        android:textColor="#ffadadad"
         android:layout_below="@id/profile_box"
-        android:padding="12dp"/>
+        android:gravity="center|bottom"
+        android:padding="12dp"
+        android:text="Your connections"
+        android:textColor="#ffadadad" />
 
     <ListView
         android:id="@+id/drawer_items"
@@ -55,38 +55,78 @@
         android:choiceMode="singleChoice"
         android:divider="@android:color/black"
         android:dividerHeight="2dp"
-        android:paddingBottom="20dp"/>
+        android:paddingBottom="20dp" />
 
     <TextView
         android:id="@+id/your_account"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="Your account"
-        android:gravity="center|bottom"
-        android:textColor="#ffadadad"
+        android:layout_height="wrap_content"
         android:layout_below="@id/drawer_items"
-        android:padding="12dp"/>
-    <TextView
-        android:id="@+id/settings"
+        android:gravity="center|bottom"
+        android:padding="12dp"
+        android:text="Your account"
+        android:textColor="#ffadadad" />
+
+    <RelativeLayout
+        android:id="@+id/drawer_footer_settings1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Settings"
-        android:gravity="center_vertical"
-        android:textColor="#fff"
         android:layout_below="@id/your_account"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:padding="12dp"/>
-    <TextView
-        android:id="@+id/about_cybermentor"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/settings_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="4dp"
+            android:background="@drawable/settings_icon"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/settings_icon"
+            android:layout_toRightOf="@id/settings_icon"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:text="Settings"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/drawer_footer_settings2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="About Cybermentor"
-        android:gravity="center_vertical"
-        android:textColor="#fff"
-        android:layout_below="@id/settings"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:padding="12dp"/>
+        android:layout_below="@id/drawer_footer_settings1"
+        android:padding="8dp">
 
+        <ImageView
+            android:id="@+id/about_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="4dp"
+            android:background="@drawable/about_icon"
+            android:gravity="center_vertical" />
 
+        <TextView
+            android:id="@+id/about_cybermentor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/about_icon"
+            android:layout_toRightOf="@id/about_icon"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:text="About Cybermentor"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="#fff" />
+    </RelativeLayout>
 </RelativeLayout>
 
