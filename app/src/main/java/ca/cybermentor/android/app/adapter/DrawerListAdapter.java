@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ca.cybermentor.android.app.R;
+import ca.cybermentor.android.app.model.Participant;
 import ca.cybermentor.android.app.model.view.DrawerItem;
 
 public class DrawerListAdapter extends ArrayAdapter {
@@ -28,7 +29,9 @@ public class DrawerListAdapter extends ArrayAdapter {
         }
 
         TextView recipientName = (TextView) convertView.findViewById(R.id.recipient_name);
-        recipientName.setText(drawerItems.get(position).recipient.name);
+        Participant recipient = drawerItems.get(position).recipient;
+        recipientName.setText(recipient.name);
+        recipientName.setTag(recipient.id);
 
         return convertView;
     }

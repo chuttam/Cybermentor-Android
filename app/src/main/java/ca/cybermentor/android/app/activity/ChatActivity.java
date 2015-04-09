@@ -20,6 +20,7 @@ import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 
 import ca.cybermentor.android.app.R;
+import ca.cybermentor.android.app.activity.listener.RecipientChangeListener;
 import ca.cybermentor.android.app.adapter.ConversationAdapter;
 import ca.cybermentor.android.app.adapter.DrawerListAdapter;
 import ca.cybermentor.android.app.api.CybermentorApi;
@@ -114,6 +115,8 @@ public class ChatActivity extends ActionBarActivity {
         ListView drawerList = (ListView) findViewById(R.id.drawer_items);
         drawerListAdapter = new DrawerListAdapter(this, drawerItems);
         drawerList.setAdapter(drawerListAdapter);
+
+        drawerList.setOnItemClickListener(new RecipientChangeListener());
 
         drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close
