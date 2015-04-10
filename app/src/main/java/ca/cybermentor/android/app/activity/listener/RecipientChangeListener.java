@@ -1,5 +1,6 @@
 package ca.cybermentor.android.app.activity.listener;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -25,8 +26,11 @@ public class RecipientChangeListener implements ListView.OnItemClickListener {
     }
 
     private void switchRecipientTo(View view, int position, String newRecipientId) {
-        Intent intent = new Intent(view.getContext(), ChatActivity.class);
+        Context context = view.getContext();
+        Activity activity = (Activity) context;
+        activity.finish();
+        Intent intent = new Intent(context, ChatActivity.class);
         intent.putExtra("receiver", newRecipientId);
-        view.getContext().startActivity(intent);
+        context.startActivity(intent);
     }
 }

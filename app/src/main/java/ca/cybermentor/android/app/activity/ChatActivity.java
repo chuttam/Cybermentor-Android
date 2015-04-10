@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,7 @@ public class ChatActivity extends ActionBarActivity {
     // Layout views
     private ArrayList<Message> conversationArrayList;
     private ConversationAdapter conversationAdapter;
+    private DrawerLayout drawerLayout;
     private DrawerListAdapter drawerListAdapter;
     private ListView chat;
     private TextView messageBox;
@@ -110,7 +112,7 @@ public class ChatActivity extends ActionBarActivity {
         drawerItems.add(new DrawerItem(new Participant("1")));
         drawerItems.add(new DrawerItem(new Participant("*** Redacted with BFG ***")));
 
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         TextView whoami = (TextView) findViewById(R.id.whoami);
         whoami.setText(me.name);
@@ -177,6 +179,14 @@ public class ChatActivity extends ActionBarActivity {
     public void onPause() {
         super.onPause();
         eventBus.unregister(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(Gravity.START))
+            drawerLayout.closeDrawer(Gravity.START);
+        else
+            super.onBackPressed();
     }
 
     @Subscribe
