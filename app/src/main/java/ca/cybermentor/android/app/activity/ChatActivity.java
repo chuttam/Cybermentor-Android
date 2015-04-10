@@ -38,7 +38,7 @@ public class ChatActivity extends ActionBarActivity {
     // Layout views
     private ArrayList<Message> conversationArrayList;
     private ConversationAdapter conversationAdapter;
-    private DrawerLayout drawerLayout;
+    public  DrawerLayout drawerLayout;
     private DrawerListAdapter drawerListAdapter;
     private ListView chat;
     private TextView messageBox;
