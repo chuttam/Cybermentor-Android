@@ -30,6 +30,7 @@ import ca.cybermentor.android.app.event.BusProvider;
 import ca.cybermentor.android.app.event.LoadConversationEvent;
 import ca.cybermentor.android.app.model.Message;
 import ca.cybermentor.android.app.model.Participant;
+import ca.cybermentor.android.app.model.constant.Secret;
 import ca.cybermentor.android.app.model.view.DrawerItem;
 
 public class ChatActivity extends ActionBarActivity {
@@ -101,16 +102,16 @@ public class ChatActivity extends ActionBarActivity {
     }
 
     private void setUpParticipants() {
-        me = new Participant("*** Redacted with BFG ***");                        // Should come from authentication
+        me = new Participant(Secret.ME_ID);                                    // Should come from authentication
         String receiver_id = getIntent().getStringExtra("receiver");
-        if (receiver_id == null) receiver_id = "1";         // default to *** Redacted with BFG *** first
+        if (receiver_id == null) receiver_id = Secret.PARTICIPANT_ID1;         // default to *** Redacted with BFG *** first
         receiver = new Participant(receiver_id);
     }
 
     private void setupDrawer() {
         ArrayList<DrawerItem> drawerItems = new ArrayList<>();
-        drawerItems.add(new DrawerItem(new Participant("1")));
-        drawerItems.add(new DrawerItem(new Participant("*** Redacted with BFG ***")));
+        drawerItems.add(new DrawerItem(new Participant(Secret.PARTICIPANT_ID1)));
+        drawerItems.add(new DrawerItem(new Participant(Secret.PARTICIPANT_ID2)));
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
