@@ -1,10 +1,12 @@
 .gradle
 /local.properties
 /.idea/*
+*.iml
 
 .DS_Store
 /build
 
+local.properties
 release.properties
 
 Secret.java
