@@ -104,7 +104,7 @@ public class ChatActivity extends ActionBarActivity {
     private void setUpParticipants() {
         me = new Participant(Secret.ME_ID);                                    // Should come from authentication
         String receiver_id = getIntent().getStringExtra("receiver");
-        if (receiver_id == null) receiver_id = Secret.PARTICIPANT_ID1;         // default to *** Redacted with BFG *** first
+        if (receiver_id == null) receiver_id = Secret.PARTICIPANT_ID1;         // default to Cybermentor Team first
         receiver = new Participant(receiver_id);
     }
 
